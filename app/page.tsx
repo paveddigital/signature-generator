@@ -18,13 +18,17 @@ interface ISignatureData {
   primaryCTAUrl: string
   secondaryCTAText: string
   secondaryCTAUrl: string
+  compactMode: boolean
 }
 
 export default function EmailSignatureGenerator() {
-  const [signatureData, setSignatureData] = useState<ISignatureData>(DEFAULT_SIGNATURE_DATA)
+  const [signatureData, setSignatureData] = useState<ISignatureData>({
+    ...DEFAULT_SIGNATURE_DATA,
+    compactMode: false,
+  })
   const previewRef = useRef<HTMLDivElement>(null)
 
-  const updateField = (field: keyof ISignatureData, value: string) => {
+  const updateField = (field: keyof ISignatureData, value: string | boolean) => {
     setSignatureData((prev: ISignatureData) => ({ ...prev, [field]: value }))
   }
 
@@ -57,7 +61,146 @@ export default function EmailSignatureGenerator() {
     }
   }
 
+  const renderSignatureSection = () => {
+    return <div ref={previewRef}>
+      <table cellPadding="0" cellSpacing="0" border={0} style={{ borderCollapse: 'collapse', fontSize: '14px', color: '#374151', width: '100%', maxWidth: '600px', fontFamily: 'Arial, Helvetica, sans-serif' }}>
+        <tbody>
+          <tr>
+            <td style={{ verticalAlign: 'top', padding: signatureData.compactMode ? '8px 8px 8px 0' : '16px 16px 16px 0', width: '60%' }}>
+              <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%' }}>
+                <tbody>
+                  <tr>
+                    <td style={{ fontSize: '18px', fontWeight: 'bold', color: '#111827', margin: '0 0 4px 0', letterSpacing: '0.05em', padding: '0' }}>{signatureData.name}</td>
+                  </tr>
+                  <tr>
+                    <td style={{ fontSize: '14px', color: '#374151', margin: '0 0 12px 0', letterSpacing: '0.02em', padding: '0' }}>{signatureData.title}</td>
+                  </tr>
+                </tbody>
+              </table>
 
+              <table cellPadding="0" cellSpacing="0" border={0} style={{ margin: signatureData.compactMode ? '0' : '16px 0' }}>
+                <tbody>
+                  <tr>
+                    <td style={{ verticalAlign: 'middle' }}>
+                      <table cellPadding="0" cellSpacing="0" border={0}>
+                        <tbody>
+                          <tr>
+                            <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
+                              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIyIDE2LjkydjNhMiAyIDAgMCAxLTIuMTggMiAxOS43OSAxOS43OSAwIDAgMS04LjYzLTMuMDcgMTkuNSAxOS41IDAgMCAxLTYtNiAxOS43OSAxOS43OSAwIDAgMS0zLjA3LTguNjdBMiAyIDAgMCAxIDQuMTEgMmgzYTIgMiAwIDAgMSAyIDEuNzIgMTIuODQgMTIuODQgMCAwIDAgLjcgMi44MSAyIDIgMCAwIDEgLS40NSAyLjExTDguMDkgOS45MWExNiAxNiAwIDAgMCA2IDZsMS4yNy0xLjI3YTIgMiAwIDAgMSAyLjExLS40NSAxMi44NCAxMi44NCAwIDAgMCAyLjgxLjdBMyAzIDAgMCAxIDIyIDE2LjkyeiIgZmlsbD0iIzM3NDE1MSIvPgo8L3N2Zz4K" alt="Phone" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
+                            </td>
+                            <td style={{ verticalAlign: 'middle' }}>
+                              <a href={`tel:${signatureData.phone}`} style={{ color: '#374151', textDecoration: 'none' }}>{signatureData.phone}</a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  {!signatureData.compactMode && (
+                    <tr>
+                      <td style={{ verticalAlign: 'middle' }}>
+                        <table cellPadding="0" cellSpacing="0" border={0}>
+                          <tbody>
+                            <tr>
+                              <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
+                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIxIDEwYzAgNy05IDEzLTkgMTNzLTktNi05LTEzYTkgOSAwIDAgMSAxOCAweiIgZmlsbD0iIzM3NDE1MSIvPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEwIiByPSIzIiBmaWxsPSIjMzc0MTUxIi8+Cjwvc3ZnPgo=" alt="Location" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
+                              </td>
+                              <td style={{ verticalAlign: 'middle' }}>
+                                <a href={getOfficeMapLink()} style={{ color: '#374151', textDecoration: 'none' }} target="_blank" rel="noopener noreferrer">{getOfficeAddress()}</a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+
+              <table cellPadding="0" cellSpacing="0" border={0} style={{ marginTop: signatureData.compactMode ? '8px' : '16px' }}>
+                <tbody>
+                  <tr>
+                    {signatureData.primaryCTAText && (
+                      <td style={{ paddingRight: '8px' }}>
+                        <a href={signatureData.primaryCTAUrl} style={{ display: 'inline-block', padding: '8px 16px', background: '#107569', color: 'white', textDecoration: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold' }}>{signatureData.primaryCTAText}</a>
+                      </td>
+                    )}
+                    {!signatureData.compactMode && signatureData.secondaryCTAText && (
+                      <td>
+                        <a href={signatureData.secondaryCTAUrl} style={{ color: '#374151', textDecoration: 'underline', fontSize: '12px' }}>{signatureData.secondaryCTAText} ›</a>
+                      </td>
+                    )}
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+
+            <td style={{ width: 1, backgroundColor: '#374151', padding: '0 1px' }}></td>
+
+            <td style={{ verticalAlign: 'top', padding: signatureData.compactMode ? '8px' : '16px', textAlign: 'left', width: '40%' }}>
+              <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', marginBottom: signatureData.compactMode ? '8px' : '16px' }}>
+                <tbody>
+                  <tr>
+                    <td>
+                      <a href={COMPANY_LINKS.website} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                        <img src="https://paveddigital.com/images/logo/logo-cropped.png" alt="Paved Digital" style={{ width: signatureData.compactMode ? '100px' : '130px', display: 'block' }} />
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', margin: signatureData.compactMode ? '4px 0' : '8px 0' }}>
+                <tbody>
+                  <tr>
+                    <td style={{ verticalAlign: 'middle' }}>
+                      <table cellPadding="0" cellSpacing="0" border={0}>
+                        <tbody>
+                          <tr>
+                            <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
+                              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IiMzNzQxNTEiLz4KPHBhdGggZD0iTTIgMTJoNmE1IDUgMCAwIDEgNSA1djUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0yMiAxMmgtNmE1IDUgMCAwIDAtNSA1djUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Website" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
+                            </td>
+                            <td style={{ verticalAlign: 'middle' }}>
+                              <a href={COMPANY_LINKS.website} style={{ color: '#374151', textDecoration: 'underline', fontSize: 14 }}>
+                                paveddigital.com
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', margin: signatureData.compactMode ? '0' : '8px 0' }}>
+                <tbody>
+                  <tr>
+                    <td style={{ verticalAlign: 'middle' }}>
+                      <table cellPadding="0" cellSpacing="0" border={0}>
+                        <tbody>
+                          <tr>
+                            <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
+                              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDhhNiA2IDAgMCAxIDYgNnY3aC00di03YTIgMiAwIDAgMC0yLTIgMiAyIDAgMCAwLTIgMnY3aC00di03YTYgNiAwIDAgMSA2LTZ6IiBmaWxsPSIjMzc0MTUxIi8+CjxyZWN0IHg9IjIiIHk9IjkiIHdpZHRoPSI0IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMzc0MTUxIi8+CjxjaXJjbGUgY3g9IjQiIGN5PSI0IiByPSIyIiBmaWxsPSIjMzc0MTUxIi8+Cjwvc3ZnPgo=" alt="LinkedIn" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
+                            </td>
+                            <td style={{ verticalAlign: 'middle' }}>
+                              <a href={COMPANY_LINKS.linkedin} style={{ color: '#374151', textDecoration: 'underline', fontSize: 14 }}>
+                                Follow us on LinkedIn
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -118,7 +261,7 @@ export default function EmailSignatureGenerator() {
                 <div>
                   <Label htmlFor="office" className="text-black">
                     <span className="text-red-600 mr-1">*</span>
-                    PAVED OFFICE
+                    OFFICE ADDRESS
                   </Label>
                   <Select
                     value={signatureData.office}
@@ -174,8 +317,18 @@ export default function EmailSignatureGenerator() {
                 />
               </div>
 
+              <div className="flex items-center gap-2">
+                <input
+                  id="compactMode"
+                  type="checkbox"
+                  checked={signatureData.compactMode}
+                  onChange={(e) => updateField("compactMode", e.target.checked)}
+                />
+                <Label htmlFor="compactMode" className="text-black">Compact Mode</Label>
+              </div>
+
               <div>
-                <h3 className="text-lg font-semibold text-gray-700 mb-3">This needs to be changed inside Vercel Variables</h3>
+                <h3 className="text-lg font-semibold text-red-600 mb-3">This needs to be changed inside Vercel Variables</h3>
 
                 <div>
                   <Label htmlFor="website" className="text-black">
@@ -205,7 +358,6 @@ export default function EmailSignatureGenerator() {
             </CardContent>
           </Card>
 
-
           <Card>
             <CardHeader>
               <div className="flex justify-between items-center">
@@ -218,146 +370,7 @@ export default function EmailSignatureGenerator() {
             </CardHeader>
             <CardContent>
               <div className="bg-white border rounded-lg">
-                <div
-                  ref={previewRef}
-                  data-preview-container
-                  style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
-                >
-                  <table cellPadding="0" cellSpacing="0" border={0} style={{ borderCollapse: 'collapse', fontSize: '14px', color: '#374151', width: '100%', maxWidth: '600px', fontFamily: 'Arial, Helvetica, sans-serif' }}>
-                    <tbody>
-                      <tr>
-                        <td style={{ verticalAlign: 'top', padding: '16px', width: '60%' }}>
-                          <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%' }}>
-                            <tbody>
-                              <tr>
-                                <td style={{ fontSize: '18px', fontWeight: 'bold', color: '#111827', margin: '0 0 4px 0', letterSpacing: '0.05em', padding: '0' }}>{signatureData.name}</td>
-                              </tr>
-                              <tr>
-                                <td style={{ fontSize: '14px', color: '#374151', margin: '0 0 12px 0', letterSpacing: '0.02em', padding: '0' }}>{signatureData.title}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-
-                          <table cellPadding="0" cellSpacing="0" border={0} style={{ margin: '16px 0' }}>
-                            <tbody>
-                              <tr>
-                                <td style={{ verticalAlign: 'middle' }}>
-                                  <table cellPadding="0" cellSpacing="0" border={0}>
-                                    <tbody>
-                                      <tr>
-                                        <td style={{ verticalAlign: 'middle', paddingRight: '8px' }}>
-                                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIyIDE2LjkydjNhMiAyIDAgMCAxLTIuMTggMiAxOS43OSAxOS43OSAwIDAgMS04LjYzLTMuMDcgMTkuNSAxOS41IDAgMCAxLTYtNiAxOS43OSAxOS43OSAwIDAgMS0zLjA3LTguNjdBMiAyIDAgMCAxIDQuMTEgMmgzYTIgMiAwIDAgMSAyIDEuNzIgMTIuODQgMTIuODQgMCAwIDAgLjcgMi44MSAyIDIgMCAwIDEgLS40NSAyLjExTDguMDkgOS45MWExNiAxNiAwIDAgMCA2IDZsMS4yNy0xLjI3YTIgMiAwIDAgMSAyLjExLS40NSAxMi44NCAxMi44NCAwIDAgMCAyLjgxLjdBMyAzIDAgMCAxIDIyIDE2LjkyeiIgZmlsbD0iIzM3NDE1MSIvPgo8L3N2Zz4K" alt="Phone" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
-                                        </td>
-                                        <td style={{ verticalAlign: 'middle' }}>
-                                          <a href={`tel:${signatureData.phone}`} style={{ color: '#374151', textDecoration: 'none' }}>{signatureData.phone}</a>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td style={{ verticalAlign: 'middle' }}>
-                                  <table cellPadding="0" cellSpacing="0" border={0}>
-                                    <tbody>
-                                      <tr>
-                                        <td style={{ verticalAlign: 'middle', paddingRight: '8px' }}>
-                                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIxIDEwYzAgNy05IDEzLTkgMTNzLTktNi05LTEzYTkgOSAwIDAgMSAxOCAweiIgZmlsbD0iIzM3NDE1MSIvPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEwIiByPSIzIiBmaWxsPSIjMzc0MTUxIi8+Cjwvc3ZnPgo=" alt="Location" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
-                                        </td>
-                                        <td style={{ verticalAlign: 'middle' }}>
-                                          <a href={getOfficeMapLink()} style={{ color: '#374151', textDecoration: 'none' }} target="_blank" rel="noopener noreferrer">{getOfficeAddress()}</a>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-
-                          <table cellPadding="0" cellSpacing="0" border={0} style={{ marginTop: '16px' }}>
-                            <tbody>
-                              <tr>
-                                {signatureData.primaryCTAText && (
-                                  <td style={{ paddingRight: '8px' }}>
-                                    <a href={signatureData.primaryCTAUrl} style={{ display: 'inline-block', padding: '8px 16px', background: '#107569', color: 'white', textDecoration: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold' }}>{signatureData.primaryCTAText}</a>
-                                  </td>
-                                )}
-                                {signatureData.secondaryCTAText && (
-                                  <td>
-                                    <a href={signatureData.secondaryCTAUrl} style={{ color: '#374151', textDecoration: 'underline', fontSize: '12px' }}>{signatureData.secondaryCTAText} →</a>
-                                  </td>
-                                )}
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-
-                        <td style={{ width: 1, backgroundColor: '#374151', padding: '0 1px' }}></td>
-
-                        <td style={{ verticalAlign: 'top', padding: '16px', textAlign: 'left', width: '40%' }}>
-                          <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', marginBottom: '16px' }}>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <a href={COMPANY_LINKS.website} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                                    <img src="https://paveddigital.com/images/logo/logo-cropped.png" alt="Paved Digital" style={{ width: '130px', display: 'block' }} />
-                                  </a>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-
-                          <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', margin: '8px 0' }}>
-                            <tbody>
-                              <tr>
-                                <td style={{ verticalAlign: 'middle' }}>
-                                  <table cellPadding="0" cellSpacing="0" border={0}>
-                                    <tbody>
-                                      <tr>
-                                        <td style={{ verticalAlign: 'middle', paddingRight: '8px' }}>
-                                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IiMzNzQxNTEiLz4KPHBhdGggZD0iTTIgMTJoNmE1IDUgMCAwIDEgNSA1djUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0yMiAxMmgtNmE1IDUgMCAwIDAtNSA1djUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Website" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
-                                        </td>
-                                        <td style={{ verticalAlign: 'middle' }}>
-                                          <a href={COMPANY_LINKS.website} style={{ color: '#374151', textDecoration: 'underline', fontSize: 14 }}>
-                                            paveddigital.com
-                                          </a>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-
-                          <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', margin: '8px 0' }}>
-                            <tbody>
-                              <tr>
-                                <td style={{ verticalAlign: 'middle' }}>
-                                  <table cellPadding="0" cellSpacing="0" border={0}>
-                                    <tbody>
-                                      <tr>
-                                        <td style={{ verticalAlign: 'middle', paddingRight: '8px' }}>
-                                          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDhhNiA2IDAgMCAxIDYgNnY3aC00di03YTIgMiAwIDAgMC0yLTIgMiAyIDAgMCAwLTIgMnY3aC00di03YTYgNiAwIDAgMSA2LTZ6IiBmaWxsPSIjMzc0MTUxIi8+CjxyZWN0IHg9IjIiIHk9IjkiIHdpZHRoPSI0IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMzc0MTUxIi8+CjxjaXJjbGUgY3g9IjQiIGN5PSI0IiByPSIyIiBmaWxsPSIjMzc0MTUxIi8+Cjwvc3ZnPgo=" alt="LinkedIn" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
-                                        </td>
-                                        <td style={{ verticalAlign: 'middle' }}>
-                                          <a href={COMPANY_LINKS.linkedin} style={{ color: '#374151', textDecoration: 'underline', fontSize: 14 }}>
-                                            Follow us on LinkedIn
-                                          </a>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                {renderSignatureSection()}
               </div>
             </CardContent>
           </Card>

@@ -28,7 +28,8 @@ export const DEFAULT_SIGNATURE_DATA = {
   primaryCTAText: process.env.NEXT_PUBLIC_DEFAULT_PRIMARY_CTA_TEXT || "BOOK MEETING",
   primaryCTAUrl: process.env.NEXT_PUBLIC_DEFAULT_PRIMARY_CTA_URL || "https://calendly.com/paved",
   secondaryCTAText: process.env.NEXT_PUBLIC_DEFAULT_SECONDARY_CTA_TEXT || "View LinkedIn",
-  secondaryCTAUrl: process.env.NEXT_PUBLIC_DEFAULT_SECONDARY_CTA_URL || "https://linkedin.com/company/paved-digital"
+  secondaryCTAUrl: process.env.NEXT_PUBLIC_DEFAULT_SECONDARY_CTA_URL || "https://linkedin.com/company/paved-digital",
+  compactMode: false
 }
 
 export const COMPANY_LINKS = {
