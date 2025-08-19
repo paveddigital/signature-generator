@@ -13,47 +13,11 @@ export const OFFICES: IOffice[] = [
     mapLink: process.env.NEXT_PUBLIC_OFFICE_SYDNEY_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
   },
   {
-    id: "melbourne",
-    name: process.env.NEXT_PUBLIC_OFFICE_MELBOURNE_NAME || "Melbourne",
-    address: process.env.NEXT_PUBLIC_OFFICE_MELBOURNE_ADDRESS || "Level 1, 1-3 Smail Street, Ultimo NSW 2007",
-    mapLink: process.env.NEXT_PUBLIC_OFFICE_MELBOURNE_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
+    id: "hcmc",
+    name: process.env.NEXT_PUBLIC_OFFICE_HCMC_NAME || "HCMC",
+    address: process.env.NEXT_PUBLIC_OFFICE_HCMC_ADDRESS || "71A Rạch Bùng Binh, Phường 9, Quận 3, Hồ Chí Minh, Vietnam",
+    mapLink: process.env.NEXT_PUBLIC_OFFICE_HCMC_MAP_LINK || "https://maps.app.goo.gl/ZaG3ADrPGUJjc1Lv9"
   },
-  {
-    id: "brisbane",
-    name: process.env.NEXT_PUBLIC_OFFICE_BRISBANE_NAME || "Brisbane",
-    address: process.env.NEXT_PUBLIC_OFFICE_BRISBANE_ADDRESS || "Level 1, 1-3 Smail Street, Ultimo NSW 2007",
-    mapLink: process.env.NEXT_PUBLIC_OFFICE_BRISBANE_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
-  },
-  {
-    id: "perth",
-    name: process.env.NEXT_PUBLIC_OFFICE_PERTH_NAME || "Perth",
-    address: process.env.NEXT_PUBLIC_OFFICE_PERTH_ADDRESS || "Level 1, 1-3 Smail Street, Ultimo NSW 2007",
-    mapLink: process.env.NEXT_PUBLIC_OFFICE_PERTH_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
-  },
-  {
-    id: "adelaide",
-    name: process.env.NEXT_PUBLIC_OFFICE_ADELAIDE_NAME || "Adelaide",
-    address: process.env.NEXT_PUBLIC_OFFICE_ADELAIDE_ADDRESS || "Level 1, 1-3 Smail Street, Ultimo NSW 2007",
-    mapLink: process.env.NEXT_PUBLIC_OFFICE_ADELAIDE_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
-  },
-  {
-    id: "canberra",
-    name: process.env.NEXT_PUBLIC_OFFICE_CANBERRA_NAME || "Canberra",
-    address: process.env.NEXT_PUBLIC_OFFICE_CANBERRA_ADDRESS || "Level 1, 1-3 Smail Street, Ultimo NSW 2007",
-    mapLink: process.env.NEXT_PUBLIC_OFFICE_CANBERRA_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
-  },
-  {
-    id: "darwin",
-    name: process.env.NEXT_PUBLIC_OFFICE_DARWIN_NAME || "Darwin",
-    address: process.env.NEXT_PUBLIC_OFFICE_DARWIN_ADDRESS || "Level 1, 1-3 Smail Street, Ultimo NSW 2007",
-    mapLink: process.env.NEXT_PUBLIC_OFFICE_DARWIN_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
-  },
-  {
-    id: "hobart",
-    name: process.env.NEXT_PUBLIC_OFFICE_HOBART_NAME || "Hobart",
-    address: process.env.NEXT_PUBLIC_OFFICE_HOBART_ADDRESS || "Level 1, 1-3 Smail Street, Ultimo NSW 2007",
-    mapLink: process.env.NEXT_PUBLIC_OFFICE_HOBART_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
-  }
 ]
 
 export const DEFAULT_SIGNATURE_DATA = {
