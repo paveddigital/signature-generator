@@ -15,7 +15,7 @@ export const OFFICES: IOffice[] = [
   {
     id: "hcmc",
     name: process.env.NEXT_PUBLIC_OFFICE_HCMC_NAME || "HCMC",
-    address: process.env.NEXT_PUBLIC_OFFICE_HCMC_ADDRESS || "71A Rạch Bùng Binh, Phường 9, Quận 3, Hồ Chí Minh, Vietnam",
+    address: process.env.NEXT_PUBLIC_OFFICE_HCMC_ADDRESS || "71A Rach Bung Binh, Ward 9, District 3, Ho Chi Minh City, Vietnam",
     mapLink: process.env.NEXT_PUBLIC_OFFICE_HCMC_MAP_LINK || "https://maps.app.goo.gl/ZaG3ADrPGUJjc1Lv9"
   },
 ]
