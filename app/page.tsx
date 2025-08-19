@@ -127,7 +127,7 @@ export default function EmailSignatureGenerator() {
                     )}
                     {!signatureData.compactMode && signatureData.secondaryCTAText && (
                       <td>
-                        <a href={signatureData.secondaryCTAUrl} style={{ color: '#374151', textDecoration: 'underline', fontSize: '12px' }}>{signatureData.secondaryCTAText} ›</a>
+                        <a href={signatureData.secondaryCTAUrl} style={{ color: '#374151', textDecoration: 'underline', fontSize: '12px' }}>{signatureData.secondaryCTAText} {'>'}</a>
                       </td>
                     )}
                   </tr>
