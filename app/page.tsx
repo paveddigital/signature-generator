@@ -21,6 +21,12 @@ interface ISignatureData {
   compactMode: boolean
 }
 
+const IMAGES = {
+  phone: "https://paveddigital.com/images/signature-icons/phone-icon.png",
+  address: "https://paveddigital.com/images/signature-icons/address-icon.png",
+  linkedIn: 'https://paveddigital.com/images/signature-icons/linkedin.png'
+}
+
 export default function EmailSignatureGenerator() {
   const [signatureData, setSignatureData] = useState<ISignatureData>(DEFAULT_SIGNATURE_DATA)
   const previewRef = useRef<HTMLDivElement>(null)
@@ -83,7 +89,7 @@ export default function EmailSignatureGenerator() {
                         <tbody>
                           <tr>
                             <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                              <img src="https://paveddigital.com/icons/phone-icon.svg" alt="Phone" style={{ verticalAlign: 'middle', width: '16px' }} />
+                              <img src={IMAGES.phone} alt="Phone" style={{ verticalAlign: 'middle', width: '16px' }} />
                             </td>
                             <td style={{ verticalAlign: 'middle' }}>
                               <a href={`tel:${signatureData.phone}`} style={{ textDecoration: 'none', color: '#000' }}>{signatureData.phone}</a>
@@ -100,7 +106,7 @@ export default function EmailSignatureGenerator() {
                           <tbody>
                             <tr>
                               <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                                <img src="https://paveddigital.com/icons/address-icon.svg" alt="Location" style={{ verticalAlign: 'middle', width: '16px' }} />
+                                <img src={IMAGES.address} alt="Location" style={{ verticalAlign: 'middle', width: '16px' }} />
                               </td>
                               <td style={{ verticalAlign: 'middle' }}>
                                 <a href={getOfficeMapLink()} style={{ textDecoration: 'none', color: '#000' }} target="_blank" rel="noopener noreferrer">{getOfficeAddress()}</a>
@@ -178,7 +184,7 @@ export default function EmailSignatureGenerator() {
                         <tbody>
                           <tr>
                             <td style={{ paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                              <img style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMGU5Mzg0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBkPSJNMjkuNjMxMyAwSDIuMzYyNUMxLjA1NjI1IDAgMCAxLjAzMTI1IDAgMi4zMDYyNVYyOS42ODc1QzAgMzAuOTYyNSAxLjA1NjI1IDMyIDIuMzYyNSAzMkgyOS42MzEzQzMwLjkzNzUgMzIgMzIgMzAuOTYyNSAzMiAyOS42OTM4VjIuMzA2MjVDMzIgMS4wMzEyNSAzMC45Mzc1IDAgMjkuNjMxMyAwWk05LjQ5Mzc1IDI3LjI2ODdINC43NDM3NVYxMS45OTM3SDkuNDkzNzVWMjcuMjY4N1pNNy4xMTg3NSA5LjkxMjVDNS41OTM3NSA5LjkxMjUgNC4zNjI1IDguNjgxMjUgNC4zNjI1IDcuMTYyNUM0LjM2MjUgNS42NDM3NSA1LjU5Mzc1IDQuNDEyNSA3LjExODc1IDQuNDEyNUM4LjYzNzUgNC40MTI1IDkuODY4NzUgNS42NDM3NSA5Ljg2ODc1IDcuMTYyNUM5Ljg2ODc1IDguNjc1IDguNjM3NSA5LjkxMjUgNy4xMTg3NSA5LjkxMjVaTTI3LjI2ODcgMjcuMjY4N0gyMi41MjVWMTkuODQzOEMyMi41MjUgMTguMDc1IDIyLjQ5MzcgMTUuNzkzNyAyMC4wNTYyIDE1Ljc5MzdDMTcuNTg3NSAxNS43OTM3IDE3LjIxMjUgMTcuNzI1IDE3LjIxMjUgMTkuNzE4OFYyNy4yNjg3SDEyLjQ3NVYxMS45OTM3SDE3LjAyNVYxNC4wODEzSDE3LjA4NzVDMTcuNzE4OCAxMi44ODEzIDE5LjI2ODggMTEuNjEyNSAyMS41NzUgMTEuNjEyNUMyNi4zODEzIDExLjYxMjUgMjcuMjY4NyAxNC43NzUgMjcuMjY4NyAxOC44ODc1VjI3LjI2ODdaIj48L3BhdGg+PC9zdmc+" alt="LinkedIn" />
+                              <img style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} src={IMAGES.linkedIn} alt="LinkedIn" />
                             </td>
                             <td style={{ verticalAlign: 'middle' }}>
                               <a href={COMPANY_LINKS.linkedin} style={{ textDecoration: 'underline', fontSize: 14, color: '#000' }}>
