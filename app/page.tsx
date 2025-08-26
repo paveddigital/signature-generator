@@ -22,10 +22,7 @@ interface ISignatureData {
 }
 
 export default function EmailSignatureGenerator() {
-  const [signatureData, setSignatureData] = useState<ISignatureData>({
-    ...DEFAULT_SIGNATURE_DATA,
-    compactMode: false,
-  })
+  const [signatureData, setSignatureData] = useState<ISignatureData>(DEFAULT_SIGNATURE_DATA)
   const previewRef = useRef<HTMLDivElement>(null)
 
   const updateField = (field: keyof ISignatureData, value: string | boolean) => {
@@ -63,17 +60,17 @@ export default function EmailSignatureGenerator() {
 
   const renderSignatureSection = () => {
     return <div ref={previewRef}>
-      <table cellPadding="0" cellSpacing="0" border={0} style={{ borderCollapse: 'collapse', fontSize: '14px', color: '#374151', width: '100%', maxWidth: '600px', fontFamily: 'Arial, Helvetica, sans-serif' }}>
+      <table cellPadding="0" cellSpacing="0" border={0} style={{ borderCollapse: 'collapse', fontSize: '14px', width: '100%', maxWidth: '600px', fontFamily: 'Arial, Helvetica, sans-serif', boxSizing: 'border-box' }}>
         <tbody>
           <tr>
             <td style={{ verticalAlign: 'top', padding: signatureData.compactMode ? '8px 8px 8px 0' : '16px 16px 16px 0', width: '60%' }}>
               <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%' }}>
                 <tbody>
                   <tr>
-                    <td style={{ fontSize: '18px', fontWeight: 'bold', color: '#111827', margin: '0 0 4px 0', letterSpacing: '0.05em', padding: '0' }}>{signatureData.name}</td>
+                    <td style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 4px 0', letterSpacing: '0.05em', padding: '0' }}>{signatureData.name}</td>
                   </tr>
                   <tr>
-                    <td style={{ fontSize: '14px', color: '#374151', margin: '0 0 12px 0', letterSpacing: '0.02em', padding: '0' }}>{signatureData.title}</td>
+                    <td style={{ fontSize: '14px', margin: '0 0 12px 0', letterSpacing: '0.02em', padding: '0' }}>{signatureData.title}</td>
                   </tr>
                 </tbody>
               </table>
@@ -86,10 +83,10 @@ export default function EmailSignatureGenerator() {
                         <tbody>
                           <tr>
                             <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIyIDE2LjkydjNhMiAyIDAgMCAxLTIuMTggMiAxOS43OSAxOS43OSAwIDAgMS04LjYzLTMuMDcgMTkuNSAxOS41IDAgMCAxLTYtNiAxOS43OSAxOS43OSAwIDAgMS0zLjA3LTguNjdBMiAyIDAgMCAxIDQuMTEgMmgzYTIgMiAwIDAgMSAyIDEuNzIgMTIuODQgMTIuODQgMCAwIDAgLjcgMi44MSAyIDIgMCAwIDEgLS40NSAyLjExTDguMDkgOS45MWExNiAxNiAwIDAgMCA2IDZsMS4yNy0xLjI3YTIgMiAwIDAgMSAyLjExLS40NSAxMi44NCAxMi44NCAwIDAgMCAyLjgxLjdBMyAzIDAgMCAxIDIyIDE2LjkyeiIgZmlsbD0iIzM3NDE1MSIvPgo8L3N2Zz4K" alt="Phone" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
+                              <img src="https://paveddigital.com/icons/phone-icon.svg" alt="Phone" style={{ verticalAlign: 'middle', width: '16px' }} />
                             </td>
                             <td style={{ verticalAlign: 'middle' }}>
-                              <a href={`tel:${signatureData.phone}`} style={{ color: '#374151', textDecoration: 'none' }}>{signatureData.phone}</a>
+                              <a href={`tel:${signatureData.phone}`} style={{ textDecoration: 'none', color: '#000' }}>{signatureData.phone}</a>
                             </td>
                           </tr>
                         </tbody>
@@ -103,10 +100,10 @@ export default function EmailSignatureGenerator() {
                           <tbody>
                             <tr>
                               <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIxIDEwYzAgNy05IDEzLTkgMTNzLTktNi05LTEzYTkgOSAwIDAgMSAxOCAweiIgZmlsbD0iIzM3NDE1MSIvPgo8Y2lyY2xlIGN4PSIxMiIgY3k9IjEwIiByPSIzIiBmaWxsPSIjMzc0MTUxIi8+Cjwvc3ZnPgo=" alt="Location" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
+                                <img src="https://paveddigital.com/icons/address-icon.svg" alt="Location" style={{ verticalAlign: 'middle', width: '16px' }} />
                               </td>
                               <td style={{ verticalAlign: 'middle' }}>
-                                <a href={getOfficeMapLink()} style={{ color: '#374151', textDecoration: 'none' }} target="_blank" rel="noopener noreferrer">{getOfficeAddress()}</a>
+                                <a href={getOfficeMapLink()} style={{ textDecoration: 'none', color: '#000' }} target="_blank" rel="noopener noreferrer">{getOfficeAddress()}</a>
                               </td>
                             </tr>
                           </tbody>
@@ -157,11 +154,11 @@ export default function EmailSignatureGenerator() {
                       <table cellPadding="0" cellSpacing="0" border={0}>
                         <tbody>
                           <tr>
-                            <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IiMzNzQxNTEiLz4KPHBhdGggZD0iTTIgMTJoNmE1IDUgMCAwIDEgNSA1djUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0yMiAxMmgtNmE1IDUgMCAwIDAtNSA1djUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjwvc3ZnPgo=" alt="Website" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
+                            <td style={{ paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
+                              <img src="https://paveddigital.com/favicon-16x16.png" alt="Paved Digital" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
                             </td>
                             <td style={{ verticalAlign: 'middle' }}>
-                              <a href={COMPANY_LINKS.website} style={{ color: '#374151', textDecoration: 'underline', fontSize: 14 }}>
+                              <a href={COMPANY_LINKS.website} style={{ textDecoration: 'underline', fontSize: 14, color: '#000' }}>
                                 paveddigital.com
                               </a>
                             </td>
@@ -180,11 +177,11 @@ export default function EmailSignatureGenerator() {
                       <table cellPadding="0" cellSpacing="0" border={0}>
                         <tbody>
                           <tr>
-                            <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                              <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDhhNiA2IDAgMCAxIDYgNnY3aC00di03YTIgMiAwIDAgMC0yLTIgMiAyIDAgMCAwLTIgMnY3aC00di03YTYgNiAwIDAgMSA2LTZ6IiBmaWxsPSIjMzc0MTUxIi8+CjxyZWN0IHg9IjIiIHk9IjkiIHdpZHRoPSI0IiBoZWlnaHQ9IjEyIiBmaWxsPSIjMzc0MTUxIi8+CjxjaXJjbGUgY3g9IjQiIGN5PSI0IiByPSIyIiBmaWxsPSIjMzc0MTUxIi8+Cjwvc3ZnPgo=" alt="LinkedIn" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
+                            <td style={{ paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
+                              <img style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMGU5Mzg0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBkPSJNMjkuNjMxMyAwSDIuMzYyNUMxLjA1NjI1IDAgMCAxLjAzMTI1IDAgMi4zMDYyNVYyOS42ODc1QzAgMzAuOTYyNSAxLjA1NjI1IDMyIDIuMzYyNSAzMkgyOS42MzEzQzMwLjkzNzUgMzIgMzIgMzAuOTYyNSAzMiAyOS42OTM4VjIuMzA2MjVDMzIgMS4wMzEyNSAzMC45Mzc1IDAgMjkuNjMxMyAwWk05LjQ5Mzc1IDI3LjI2ODdINC43NDM3NVYxMS45OTM3SDkuNDkzNzVWMjcuMjY4N1pNNy4xMTg3NSA5LjkxMjVDNS41OTM3NSA5LjkxMjUgNC4zNjI1IDguNjgxMjUgNC4zNjI1IDcuMTYyNUM0LjM2MjUgNS42NDM3NSA1LjU5Mzc1IDQuNDEyNSA3LjExODc1IDQuNDEyNUM4LjYzNzUgNC40MTI1IDkuODY4NzUgNS42NDM3NSA5Ljg2ODc1IDcuMTYyNUM5Ljg2ODc1IDguNjc1IDguNjM3NSA5LjkxMjUgNy4xMTg3NSA5LjkxMjVaTTI3LjI2ODcgMjcuMjY4N0gyMi41MjVWMTkuODQzOEMyMi41MjUgMTguMDc1IDIyLjQ5MzcgMTUuNzkzNyAyMC4wNTYyIDE1Ljc5MzdDMTcuNTg3NSAxNS43OTM3IDE3LjIxMjUgMTcuNzI1IDE3LjIxMjUgMTkuNzE4OFYyNy4yNjg3SDEyLjQ3NVYxMS45OTM3SDE3LjAyNVYxNC4wODEzSDE3LjA4NzVDMTcuNzE4OCAxMi44ODEzIDE5LjI2ODggMTEuNjEyNSAyMS41NzUgMTEuNjEyNUMyNi4zODEzIDExLjYxMjUgMjcuMjY4NyAxNC43NzUgMjcuMjY4NyAxOC44ODc1VjI3LjI2ODdaIj48L3BhdGg+PC9zdmc+" alt="LinkedIn" />
                             </td>
                             <td style={{ verticalAlign: 'middle' }}>
-                              <a href={COMPANY_LINKS.linkedin} style={{ color: '#374151', textDecoration: 'underline', fontSize: 14 }}>
+                              <a href={COMPANY_LINKS.linkedin} style={{ textDecoration: 'underline', fontSize: 14, color: '#000' }}>
                                 Follow us on LinkedIn
                               </a>
                             </td>

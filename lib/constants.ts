@@ -9,7 +9,7 @@ export const OFFICES: IOffice[] = [
   {
     id: "sydney",
     name: process.env.NEXT_PUBLIC_OFFICE_SYDNEY_NAME || "Sydney",
-    address: process.env.NEXT_PUBLIC_OFFICE_SYDNEY_ADDRESS || "Level 1, 1-3 Smail Street, Ultimo NSW 2007",
+    address: process.env.NEXT_PUBLIC_OFFICE_SYDNEY_ADDRESS || "Level 3, 7 Macquarie Place, Sydney, NSW, 2000",
     mapLink: process.env.NEXT_PUBLIC_OFFICE_SYDNEY_MAP_LINK || "https://maps.google.com/?q=Level+1,+1-3+Smail+Street,+Ultimo+NSW+2007"
   },
   {
