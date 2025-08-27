@@ -222,9 +222,9 @@ export default function EmailSignatureGenerator() {
         <h1 className="text-3xl font-bold text-center mb-8">Email Signature Generator</h1>
         <p className="text-red-600 text-center mb-8">* Open your downloaded html file in Chrome browser, press Ctrl+A to select the content then copy (Ctrl+C) and paste (Ctrl+V) to your outlook signature editor.</p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
 
-          <Card>
+          <Card className="lg:col-span-2">
             <CardHeader>
               <CardTitle>Signature Details</CardTitle>
             </CardHeader>
@@ -372,7 +372,7 @@ export default function EmailSignatureGenerator() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="lg:col-span-3">
             <CardHeader>
               <div className="flex justify-between items-center">
                 <CardTitle>Live Preview</CardTitle>
