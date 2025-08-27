@@ -69,135 +69,137 @@ export default function EmailSignatureGenerator() {
       <table cellPadding="0" cellSpacing="0" border={0} style={{ borderCollapse: 'collapse', fontSize: '14px', width: '100%', maxWidth: '600px', fontFamily: 'Arial, Helvetica, sans-serif', boxSizing: 'border-box' }}>
         <tbody>
           <tr>
-            <td style={{ verticalAlign: 'top', padding: signatureData.compactMode ? '8px 8px 8px 0' : '16px 16px 16px 0', width: '60%' }}>
-              <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%' }}>
-                <tbody>
-                  <tr>
-                    <td style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 4px 0', letterSpacing: '0.05em', padding: '0' }}>{signatureData.name}</td>
-                  </tr>
-                  <tr>
-                    <td style={{ fontSize: '14px', margin: '0 0 12px 0', letterSpacing: '0.02em', padding: '0' }}>{signatureData.title}</td>
-                  </tr>
-                </tbody>
-              </table>
+            {/* Left Column - Personal Info */}
+            <td style={{ verticalAlign: 'top', padding: signatureData.compactMode ? '8px 8px 0 0' : '16px 16px 0 0', width: '60%' }}>
+              {/* Name and Title */}
+              <div style={{ marginBottom: signatureData.compactMode ? '0' : '12px' }}>
+                <div style={{ fontSize: '18px', fontWeight: 'bold', margin: '0 0 4px 0', letterSpacing: '0.05em' }}>
+                  {signatureData.name}
+                </div>
+                <div style={{ fontSize: '14px', margin: '0', letterSpacing: '0.02em' }}>
+                  {signatureData.title}
+                </div>
+              </div>
 
-              <table cellPadding="0" cellSpacing="0" border={0} style={{ margin: signatureData.compactMode ? '0' : '16px 0' }}>
-                <tbody>
-                  <tr>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <table cellPadding="0" cellSpacing="0" border={0}>
-                        <tbody>
-                          <tr>
-                            <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                              <img src={IMAGES.phone} alt="Phone" style={{ verticalAlign: 'middle', width: '16px' }} />
-                            </td>
-                            <td style={{ verticalAlign: 'middle' }}>
-                              <a href={`tel:${signatureData.phone}`} style={{ textDecoration: 'none', color: '#000' }}>{signatureData.phone}</a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  {!signatureData.compactMode && (
-                    <tr>
-                      <td style={{ verticalAlign: 'middle' }}>
-                        <table cellPadding="0" cellSpacing="0" border={0}>
-                          <tbody>
-                            <tr>
-                              <td style={{ verticalAlign: 'middle', paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                                <img src={IMAGES.address} alt="Location" style={{ verticalAlign: 'middle', width: '16px' }} />
-                              </td>
-                              <td style={{ verticalAlign: 'middle' }}>
-                                <a href={getOfficeMapLink()} style={{ textDecoration: 'none', color: '#000' }} target="_blank" rel="noopener noreferrer">{getOfficeAddress()}</a>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+              {/* Contact Info */}
+              <div style={{ margin: signatureData.compactMode ? '0' : '8px 0' }}>
+                {/* Phone */}
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: signatureData.compactMode ? '0' : '8px' }}>
+                  <img src={IMAGES.phone} alt="Phone" style={{ width: '16px', marginRight: signatureData.compactMode ? '4px' : '8px' }} />
+                  <a href={`tel:${signatureData.phone}`} style={{ textDecoration: 'underline', cursor: 'pointer' }}>
+                    {signatureData.phone}
+                  </a>
+                </div>
 
-              <table cellPadding="0" cellSpacing="0" border={0} style={{ marginTop: signatureData.compactMode ? '8px' : '16px' }}>
-                <tbody>
-                  <tr>
-                    {signatureData.primaryCTAText && (
-                      <td style={{ paddingRight: '8px' }}>
-                        <a href={signatureData.primaryCTAUrl} style={{ display: 'inline-block', padding: '8px 16px', background: '#107569', color: 'white', textDecoration: 'none', borderRadius: '8px', fontSize: '12px', fontWeight: 'bold' }}>{signatureData.primaryCTAText}</a>
-                      </td>
-                    )}
-                    {!signatureData.compactMode && signatureData.secondaryCTAText && (
-                      <td>
-                        <a href={signatureData.secondaryCTAUrl} style={{ color: '#374151', textDecoration: 'underline', fontSize: '12px' }}>{signatureData.secondaryCTAText} {'>'}</a>
-                      </td>
-                    )}
-                  </tr>
-                </tbody>
-              </table>
+                {/* Address - only show in non-compact mode */}
+                {!signatureData.compactMode && (
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img src={IMAGES.address} alt="Location" style={{ width: '16px', marginRight: '8px' }} />
+                    <a href={getOfficeMapLink()}
+                      style={{
+                        textDecoration: 'underline',
+                        color: '#000',
+                        cursor: 'pointer',
+                        height: '20px',
+                      }}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      {getOfficeAddress()}
+                    </a>
+                  </div>
+                )}
+              </div>
+
+              {/* CTAs */}
+              <div style={{ marginTop: signatureData.compactMode ? '8px' : '16px' }}>
+                {signatureData.primaryCTAText && (
+                  <a href={signatureData.primaryCTAUrl} style={{
+                    display: 'inline-block',
+                    padding: '8px 16px',
+                    background: '#107569',
+                    color: 'white',
+                    fontSize: '12px',
+                    textDecoration: 'none',
+                    borderRadius: '8px',
+                    fontWeight: 'bold',
+                  }}>
+                    {signatureData.primaryCTAText}
+                  </a>
+                )}
+                {!signatureData.compactMode && signatureData.secondaryCTAText && (
+                  <a href={signatureData.secondaryCTAUrl} style={{
+                    marginLeft: signatureData.compactMode ? '0' : '8px',
+                    color: '#000',
+                    textDecoration: 'underline',
+                    height: '20px',
+                  }}>
+                    {signatureData.secondaryCTAText} {'>'}
+                  </a>
+                )}
+              </div>
             </td>
 
+            {/* Divider */}
             <td style={{ width: 1, backgroundColor: '#374151', padding: '0 1px' }}></td>
 
+            {/* Right Column - Company Info */}
             <td style={{ verticalAlign: 'top', padding: signatureData.compactMode ? '8px' : '16px', textAlign: 'left', width: '40%' }}>
-              <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', marginBottom: signatureData.compactMode ? '8px' : '16px' }}>
-                <tbody>
-                  <tr>
-                    <td>
-                      <a href={COMPANY_LINKS.website} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-                        <img src="https://paveddigital.com/images/logo/logo-cropped.png" alt="Paved Digital" style={{ width: signatureData.compactMode ? '100px' : '130px', display: 'block' }} />
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* Logo */}
+              <div style={{ marginBottom: signatureData.compactMode ? '8px' : '16px' }}>
+                <a href={COMPANY_LINKS.website} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                  <img
+                    src="https://paveddigital.com/images/logo/logo-cropped.png"
+                    alt="Paved Digital"
+                    style={{
+                      width: signatureData.compactMode ? '100px' : '130px',
+                      display: 'block'
+                    }}
+                  />
+                </a>
+              </div>
 
-              <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', margin: signatureData.compactMode ? '4px 0' : '8px 0' }}>
-                <tbody>
-                  <tr>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <table cellPadding="0" cellSpacing="0" border={0}>
-                        <tbody>
-                          <tr>
-                            <td style={{ paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                              <img src="https://paveddigital.com/favicon-16x16.png" alt="Paved Digital" style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} />
-                            </td>
-                            <td style={{ verticalAlign: 'middle' }}>
-                              <a href={COMPANY_LINKS.website} style={{ textDecoration: 'underline', fontSize: 14, color: '#000' }}>
-                                paveddigital.com
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* Website */}
+              <div style={{ marginBottom: signatureData.compactMode ? '4px' : '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                  <img
+                    src="https://paveddigital.com/favicon-16x16.png"
+                    alt="Paved Digital"
+                    style={{
+                      width: '16px',
+                      height: '16px',
+                      marginRight: signatureData.compactMode ? '4px' : '8px'
+                    }}
+                  />
+                  <a href={COMPANY_LINKS.website} style={{
+                    textDecoration: 'underline',
+                    color: '#000'
+                  }}>
+                    paveddigital.com
+                  </a>
+                </div>
+              </div>
 
-              <table cellPadding="0" cellSpacing="0" border={0} style={{ width: '100%', margin: signatureData.compactMode ? '0' : '8px 0' }}>
-                <tbody>
-                  <tr>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <table cellPadding="0" cellSpacing="0" border={0}>
-                        <tbody>
-                          <tr>
-                            <td style={{ paddingRight: signatureData.compactMode ? '4px' : '8px' }}>
-                              <img style={{ width: '16px', height: '16px', verticalAlign: 'middle' }} src={IMAGES.linkedIn} alt="LinkedIn" />
-                            </td>
-                            <td style={{ verticalAlign: 'middle' }}>
-                              <a href={COMPANY_LINKS.linkedin} style={{ textDecoration: 'underline', fontSize: 14, color: '#000' }}>
-                                Follow us on LinkedIn
-                              </a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {/* LinkedIn */}
+              <div style={{ marginBottom: signatureData.compactMode ? '0' : '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+                  <img
+                    src={IMAGES.linkedIn}
+                    alt="LinkedIn"
+                    style={{
+                      width: '16px',
+                      height: '16px',
+                      marginRight: signatureData.compactMode ? '4px' : '8px'
+                    }}
+                  />
+                  <a href={COMPANY_LINKS.linkedin} style={{
+                    textDecoration: 'underline',
+                    fontSize: 14,
+                    color: '#000'
+                  }}>
+                    Follow us on LinkedIn
+                  </a>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
