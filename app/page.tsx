@@ -19,6 +19,7 @@ interface ISignatureData {
   secondaryCTAText: string
   secondaryCTAUrl: string
   compactMode: boolean
+  showSecondaryCTA: boolean
 }
 
 const IMAGES = {
@@ -132,7 +133,7 @@ export default function EmailSignatureGenerator() {
                         </a>
                       )}
                       &nbsp;&nbsp;
-                      {!signatureData.compactMode && signatureData.secondaryCTAText && (
+                      {!signatureData.showSecondaryCTA && !signatureData.compactMode && signatureData.secondaryCTAText && (
                         <a href={signatureData.secondaryCTAUrl} style={{
                           marginLeft: signatureData.compactMode ? '0' : '8px',
                           color: '#000',
@@ -331,14 +332,25 @@ export default function EmailSignatureGenerator() {
                 />
               </div>
 
-              <div className="flex items-center gap-2">
-                <input
-                  id="compactMode"
-                  type="checkbox"
-                  checked={signatureData.compactMode}
-                  onChange={(e) => updateField("compactMode", e.target.checked)}
-                />
-                <Label htmlFor="compactMode" className="text-black">Compact Mode</Label>
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <input
+                    id="compactMode"
+                    type="checkbox"
+                    checked={signatureData.compactMode}
+                    onChange={(e) => updateField("compactMode", e.target.checked)}
+                  />
+                  <Label htmlFor="compactMode" className="text-black">Compact Mode</Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    id="showSecondaryCTA"
+                    type="checkbox"
+                    checked={signatureData.showSecondaryCTA}
+                    onChange={(e) => updateField("showSecondaryCTA", e.target.checked)}
+                  />
+                  <Label htmlFor="showSecondaryCTA" className="text-black">For MacOS Outlook App Users</Label>
+                </div>
               </div>
 
               <div>
