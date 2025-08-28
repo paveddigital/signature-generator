@@ -78,7 +78,7 @@ export default function EmailSignatureGenerator() {
         <tbody>
           <tr>
             <td style={{ padding: signatureData.compactMode ? '8px 8px 0 0' : '16px 16px 0 0', width: '60%' }}>
-              <table>
+              <table style={{ width: '100%' }}>
                 <tbody>
                   <tr>
                     <td style={{ fontSize: '18px', fontWeight: 'bold', paddingBottom: signatureData.compactMode ? '0' : '12px', letterSpacing: '0.05em' }}>
@@ -151,7 +151,7 @@ export default function EmailSignatureGenerator() {
             </td>
             <td style={{ width: 1, backgroundColor: '#374151', padding: '0 1px' }}></td>
             <td style={{ verticalAlign: 'top', padding: signatureData.compactMode ? '8px' : '16px', textAlign: 'left', width: '40%' }}>
-              <table>
+              <table style={{ width: '100%' }}>
                 <tbody>
                   <tr>
                     <td style={{ paddingBottom: signatureData.compactMode ? '8px' : '16px', width: signatureData.compactMode ? '100px !important' : '130px !important' }}>
