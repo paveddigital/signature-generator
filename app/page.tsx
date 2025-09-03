@@ -121,10 +121,10 @@ export default function EmailSignatureGenerator() {
                       {signatureData.primaryCTAText && (
                         <a href={signatureData.primaryCTAUrl} style={{
                           display: 'inline-block',
-                          padding: '8px 16px',
-                          background: '#107569',
-                          color: 'white',
-                          textDecoration: 'none',
+                          padding: signatureData.showSecondaryCTA ? '0' : '8px 16px',
+                          background: signatureData.showSecondaryCTA ? 'transparent' : '#107569',
+                          color: signatureData.showSecondaryCTA ? '#000' : 'white',
+                          textDecoration: signatureData.showSecondaryCTA ? 'underline' : 'none',
                           borderRadius: '8px',
                           fontSize: '14px',
                           fontWeight: 'bold',
